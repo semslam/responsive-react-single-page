@@ -1,22 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import Redirect from 'react-router-dom';
 import Header from '../components/Header';
+import UsersList from '../components/UsersList';
+import AddUser from '../components/AddUser';
 import useLocalStorage from '../hooks/useLocalStorage';
+import EditUser from '../components/EditUser';
 import UsersContext from '../context/UsersContext';
-import {manufacturesStorage} from '../hooks/manufacturesStorage';
 
 const AppRouter = () => {
   const [users, setUsers] = useLocalStorage('users', []);
-  manufacturesStorage()
+
   return (
     <BrowserRouter>
       <div>
         <Header />
-        <div className="">
+        <div className="main-content">
           <UsersContext.Provider value={{ users, setUsers }}>
-            <Switch>
+            <Routes>
+            <Route component={UsersList} path="/" exact={true} />
+              <Route component={AddUser} path="/add" />
+              <Route component={EditUser} path="/edit/:id" />
               <Route component={() => <Redirect to="/" />} />
-            </Switch>
+            </Routes>
           </UsersContext.Provider>
         </div>
       </div>

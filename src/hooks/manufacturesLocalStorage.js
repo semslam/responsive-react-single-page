@@ -1,4 +1,4 @@
-
+const manufactures = "manufactures";
 const manufacturesStorage = () => {
   
     try {
@@ -10,15 +10,29 @@ const manufacturesStorage = () => {
             { value: 5, label: 'IBM' },
             { value: 6, label: 'AWS' },
           ];
-        const manufacturesData = localStorage.getItem('manufactures');
+        const manufacturesData = localStorage.getItem(manufactures);
         if (!manufacturesData) {
-          localStorage.setItem('manufactures', JSON.stringify(manufacturesSectorOptions));
+          localStorage.setItem(manufactures, JSON.stringify(manufacturesSectorOptions));
         }
-      return manufacturesData;
+
     } catch (err) {
       console.log(err.message);
     }
  
 };
 
-export default manufacturesStorage;
+const fetchManufacturesStorage = () => {
+  try {
+    const manufacturesData = localStorage.getItem(manufactures); 
+    return manufacturesData;
+  } catch (err) {
+    console.log(err.message);
+  }
+
+};
+
+
+export {
+  fetchManufacturesStorage,
+  manufacturesStorage
+} 
